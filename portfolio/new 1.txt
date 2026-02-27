@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cris Justine Velos | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f0a;
+    --bg2: #0d1410;
+    --nav-bg: #0b1a0f;
+    --green: #1a6b35;
+    --green-light: #25a050;
+    --green-bright: #3ddc78;
+    --green-dim: #16532a;
+    --accent: #4eff8c;
+    --text: #e8f5ec;
+    --text-muted: #7aaa87;
+    --border: rgba(58,180,100,0.18);
+    --card: rgba(13,26,16,0.85);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 62px; backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.25rem;
+    color: var(--accent); cursor: pointer; letter-spacing: 0.04em; text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 4px; list-style: none; }
+  .nav-links a {
+    color: var(--text-muted); text-decoration: none; font-size: 0.875rem;
+    font-weight: 500; padding: 6px 14px; border-radius: 6px; transition: all 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); background: rgba(61,220,120,0.08); }
+
+  /* HOME */
+  #home {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 80px 80px 60px;
+    background: radial-gradient(ellipse at 20% 60%, rgba(26,107,53,0.18) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(13,42,21,0.3) 0%, transparent 50%), var(--bg);
+    position: relative; overflow: hidden;
+  }
+  #home::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(58,180,100,0.04) 60px),
+      repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(58,180,100,0.04) 60px);
+    pointer-events: none;
+  }
+  .home-text { flex: 1; z-index: 1; animation: fadeUp 0.8s ease both; }
+  .home-tag {
+    display: inline-block; background: rgba(61,220,120,0.1);
+    border: 1px solid rgba(61,220,120,0.25); color: var(--accent);
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 22px;
+  }
+  .home-text h1 {
+    font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 5vw, 4.2rem);
+    font-weight: 800; line-height: 1.05; color: var(--text); margin-bottom: 14px;
+  }
+  .home-text h1 span { color: var(--accent); }
+  .home-roles { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .role-pill {
+    background: var(--green-dim); color: var(--green-bright);
+    font-size: 0.8rem; font-weight: 600; padding: 5px 14px;
+    border-radius: 20px; border: 1px solid rgba(37,160,80,0.3);
+  }
+  .home-text p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; max-width: 500px; margin-bottom: 32px; }
+  .home-btns { display: flex; gap: 14px; }
+  .btn-primary {
+    background: var(--green-light); color: #0a0f0a; font-weight: 700;
+    font-size: 0.9rem; padding: 12px 28px; border-radius: 8px; border: none;
+    cursor: pointer; text-decoration: none; transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--accent); font-weight: 600;
+    font-size: 0.9rem; padding: 12px 28px; border-radius: 8px;
+    border: 1.5px solid rgba(61,220,120,0.4); cursor: pointer;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .btn-outline:hover { background: rgba(61,220,120,0.08); border-color: var(--accent); transform: translateY(-2px); }
+  .home-image { flex: 0 0 auto; margin-left: 80px; z-index: 1; animation: fadeUp 0.8s 0.2s ease both; }
+  .profile-ring {
+    width: 300px; height: 300px; border-radius: 50%;
+    border: 3px solid rgba(61,220,120,0.35); padding: 8px;
+    background: radial-gradient(circle, rgba(26,107,53,0.2), transparent);
+    box-shadow: 0 0 60px rgba(37,160,80,0.15), 0 0 120px rgba(37,160,80,0.07);
+    position: relative;
+  }
+  .profile-ring::after {
+    content: ''; position: absolute; inset: -12px; border-radius: 50%;
+    border: 1px solid rgba(61,220,120,0.1);
+    animation: spin 20s linear infinite;
+    background: conic-gradient(from 0deg, transparent 80%, rgba(61,220,120,0.3) 100%);
+  }
+  .profile-placeholder {
+    width: 100%; height: 100%; border-radius: 50%;
+    background: linear-gradient(135deg, #1a3d22 0%, #0d1f11 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 5rem; font-weight: 800;
+    color: var(--accent); opacity: 0.7;
+  }
+
+  /* SHARED SECTION STYLES */
+  section { padding: 80px 0 60px; }
+  .section-header { text-align: center; margin-bottom: 60px; }
+  .section-header h2 {
+    font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800; color: var(--text); margin-bottom: 10px;
+  }
+  .section-header p { color: var(--text-muted); font-size: 0.95rem; }
+  .section-line { width: 50px; height: 3px; background: var(--accent); margin: 14px auto 0; border-radius: 2px; }
+
+  /* SKILLS */
+  #skills { background: var(--bg2); padding: 80px 80px; }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px; max-width: 1000px; margin: 0 auto;
+  }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 32px 24px; text-align: center; transition: all 0.25s; position: relative; overflow: hidden;
+  }
+  .skill-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .skill-card:hover { border-color: rgba(61,220,120,0.35); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(37,160,80,0.12); }
+  .skill-card:hover::before { opacity: 1; }
+  .skill-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+  .skill-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+  .skill-card p { color: var(--text-muted); font-size: 0.825rem; line-height: 1.55; }
+
+  /* ACHIEVEMENTS */
+  #achievements { padding: 80px 80px; background: var(--bg); }
+  .timeline { max-width: 700px; margin: 0 auto; position: relative; padding-left: 20px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(to bottom, var(--green-bright), var(--green-dim), transparent);
+  }
+  .timeline-year {
+    font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800;
+    color: var(--accent); margin: 36px 0 16px 28px;
+  }
+  .timeline-year:first-child { margin-top: 0; }
+  .timeline-item {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 24px; margin-left: 28px; margin-bottom: 14px; position: relative; transition: all 0.2s;
+  }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -36px; top: 50%; transform: translateY(-50%);
+    width: 12px; height: 12px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 10px var(--green-bright); border: 2px solid var(--bg);
+  }
+  .timeline-item:hover { border-color: rgba(61,220,120,0.3); transform: translateX(4px); }
+  .timeline-item h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .timeline-item p { color: var(--text-muted); font-size: 0.85rem; }
+
+  /* WORKS */
+  #works { padding: 80px 80px; background: var(--bg2); }
+  .works-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .works-item {
+    border-radius: 12px; background: var(--card); border: 1px solid var(--border);
+    aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; color: var(--text-muted); flex-direction: column; gap: 8px;
+    cursor: pointer; transition: all 0.25s; position: relative; overflow: hidden;
+  }
+  .works-item:hover { border-color: rgba(61,220,120,0.3); transform: scale(1.02); }
+  .works-item.video-item { grid-column: span 3; aspect-ratio: 16/6; background: linear-gradient(135deg, #0d2215, #0a1a0d); }
+  .works-icon { font-size: 2rem; opacity: 0.5; }
+  .works-label { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+  .upload-hint { font-size: 0.7rem; color: rgba(122,170,135,0.4); text-align: center; padding: 0 16px; }
+
+  /* CONTACT */
+  #contact { padding: 80px 80px; background: var(--bg); }
+  .contact-cards { display: flex; gap: 20px; max-width: 800px; margin: 0 auto; justify-content: center; flex-wrap: wrap; }
+  .contact-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 28px 36px; text-align: center; transition: all 0.25s; min-width: 200px; flex: 1;
+  }
+  .contact-card:hover { border-color: rgba(61,220,120,0.35); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(37,160,80,0.1); }
+  .contact-icon { font-size: 1.8rem; margin-bottom: 10px; }
+  .contact-card h3 { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .contact-card a { color: var(--accent); font-size: 0.88rem; text-decoration: none; font-weight: 500; word-break: break-all; }
+  .contact-card p { color: var(--text); font-size: 0.9rem; }
+
+  /* OVERLAY SECTIONS */
+  #gallery-section, #study-section {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: var(--bg); overflow-y: auto; padding: 90px 80px 80px;
+    animation: fadeIn 0.3s ease;
+  }
+  .overlay-close {
+    position: fixed; top: 14px; right: 48px;
+    background: rgba(61,220,120,0.12); border: 1px solid rgba(61,220,120,0.3);
+    color: var(--accent); font-size: 1.1rem; width: 40px; height: 40px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 210; transition: all 0.2s;
+  }
+  .overlay-close:hover { background: rgba(61,220,120,0.25); transform: scale(1.1); }
+
+  .gallery-intro { max-width: 700px; margin: 0 auto 50px; text-align: center; }
+  .gallery-intro h2 { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--text); margin-bottom: 12px; }
+  .gallery-intro p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; }
+
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1000px; margin: 0 auto; }
+  .gallery-item {
+    aspect-ratio: 4/3; background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 8px; color: var(--text-muted); font-size: 0.8rem;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .gallery-item:hover { border-color: rgba(61,220,120,0.3); transform: scale(1.02); }
+
+  .gallery-quote {
+    text-align: center; margin-top: 60px; padding: 40px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    max-width: 600px; margin-left: auto; margin-right: auto;
+  }
+  .gallery-quote p {
+    font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 600;
+    color: var(--accent); font-style: italic; line-height: 1.6;
+  }
+
+  .study-items { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+  .study-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 28px; display: flex; gap: 24px; align-items: flex-start; transition: all 0.2s;
+  }
+  .study-card:hover { border-color: rgba(61,220,120,0.3); transform: translateX(4px); }
+  .study-img {
+    width: 100px; height: 80px; background: linear-gradient(135deg, #1a3d22, #0d1f11);
+    border-radius: 10px; flex-shrink: 0; display: flex; align-items: center;
+    justify-content: center; font-size: 1.8rem; border: 1px solid var(--border);
+  }
+  .study-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--text); margin-bottom: 6px; }
+  .study-card p { color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; }
+
+  footer {
+    background: var(--nav-bg); border-top: 1px solid var(--border);
+    text-align: center; padding: 22px; color: var(--text-muted); font-size: 0.8rem;
+  }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--green-dim); border-radius: 3px; }
+
+  @media (max-width: 900px) {
+    #home { flex-direction: column-reverse; padding: 100px 24px 60px; text-align: center; }
+    .home-image { margin: 0 0 40px; }
+    .profile-ring { width: 200px; height: 200px; }
+    .home-btns, .home-roles { justify-content: center; }
+    nav { padding: 0 16px; }
+    .nav-links a { font-size: 0.72rem; padding: 5px 7px; }
+    #skills, #achievements, #works, #contact { padding: 60px 24px; }
+    .skills-grid, .works-grid { grid-template-columns: 1fr 1fr; }
+    .works-item.video-item { grid-column: span 2; }
+    #gallery-section, #study-section { padding: 80px 24px 60px; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .study-card { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#home" class="nav-logo">Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#works">Works</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#" onclick="showSection('gallery-section'); return false;">Gallery</a></li>
+    <li><a href="#" onclick="showSection('study-section'); return false;">Study</a></li>
+  </ul>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+  <div class="home-text">
+    <span class="home-tag">Open to Opportunities</span>
+    <h1>Cris Justine<br><span>Velos</span></h1>
+    <div class="home-roles">
+      <span class="role-pill">Programmer</span>
+      <span class="role-pill">Junior Developer</span>
+      <span class="role-pill">Animator</span>
+    </div>
+    <p>Hi! I'm Cris Justine, a passionate developer and animator from Davao City. I love building digital experiences — from writing clean code and interactive systems, to bringing ideas to life through animation. Always learning, always creating.</p>
+    <div class="home-btns">
+      <a href="#works" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Contact Me</a>
+    </div>
+  </div>
+  <div class="home-image">
+    <div class="profile-ring">
+      <div class="profile-placeholder">CJ</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <h2>My Skills</h2>
+    <p>Technologies and tools I work with</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3>Time Management</h3>
+      <p>Efficiently organizing tasks and deadlines to deliver quality work on time without compromising results.</p>
+    </div>
+    <div class="skill-card">
+      <h3>HTML</h3>
+      <p>Building semantic, accessible, and well-structured web pages from scratch using modern HTML5.</p>
+    </div>
+    <div class="skill-card">
+      <h3>Java</h3>
+      <p>Writing object-oriented programs and building logic-heavy applications with Java fundamentals.</p>
+    </div>
+    <div class="skill-card">
+      <h3>Animation</h3>
+      <p>Creating 2D/3D animations and motion graphics that tell visual stories and captivate audiences.</p>
+    </div>
+    <div class="skill-card">
+      <h3>Arduino IDE</h3>
+      <p>Programming microcontrollers and building hardware projects with sensors, circuits, and electronics.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-header">
+    <h2>Achievements</h2>
+    <p>My accomplishments and milestones</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-year">2024–2025</div>
+    <div class="timeline-item">
+      <h3>Grade 11 With Honors</h3>
+      <p>Recognized for academic excellence throughout Grade 11</p>
+    </div>
+    <div class="timeline-year">2025–2026</div>
+    <div class="timeline-item">
+      <h3>With High Honors</h3>
+      <p>1st Semester, 2nd Quarter</p>
+    </div>
+    <div class="timeline-item">
+      <h3>With High Honors</h3>
+      <p>1st Semester, 1st Quarter</p>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works">
+  <div class="section-header">
+    <h2>Previous Works</h2>
+    <p>A collection of projects and creations</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="works-grid">
+    <div class="works-item video-item">
+      <span class="works-label">Video Project</span>
+      <span class="upload-hint">Replace with your video embed or file</span>
+    </div>
+    <div class="works-item"><span class="works-label">Project Image</span></div>
+    <div class="works-item"><span class="works-label">Project Image</span></div>
+    <div class="works-item"><span class="works-label">Project Image</span></div>
+    <div class="works-item"><span class="works-label">Project Image</span></div>
+    <div class="works-item"><span class="works-label">Project Image</span></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <h2>Contact Information</h2>
+    <p>Let's get in touch</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-cards">
+    <div class="contact-card">
+      <h3>Email</h3>
+      <a href="mailto:crisjustinevelos923@gmail.com">crisjustinevelos923@gmail.com</a>
+    </div>
+    <div class="contact-card">
+      <h3>Phone</h3>
+      <a href="tel:+639993815562">+63 999 381 5562</a>
+    </div>
+    <div class="contact-card">
+      <h3>Location</h3>
+      <p>Davao City, Philippines</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Cris Justine Velos · Davao City, Philippines</p>
+</footer>
+
+<!-- GALLERY OVERLAY -->
+<div id="gallery-section">
+  <button class="overlay-close" onclick="hideSection('gallery-section')">✕</button>
+  <div class="gallery-intro">
+    <h2>Gallery</h2>
+    <p>A collection of memories and experiences that have shaped who I am — captured in moments worth remembering forever.</p>
+    <p style="color: rgba(122,170,135,0.5); font-size: 0.85rem; margin-top: 6px;">Every photo tells a story. Here are mine.</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item"><span>Memory Photo</span></div>
+    <div class="gallery-item"><span>Memory Photo</span></div>
+    <div class="gallery-item"><span>Memory Photo</span></div>
+    <div class="gallery-item"><span>Memory Photo</span></div>
+    <div class="gallery-item"><span>Memory Photo</span></div>
+    <div class="gallery-item"><span>Memory Photo</span></div>
+  </div>
+  <div class="gallery-quote" style="margin-top:50px">
+    <p>"Life is a collection of moments — keep the best ones close and let them remind you how far you've come."</p>
+  </div>
+</div>
+
+<!-- STUDY OVERLAY -->
+<div id="study-section">
+  <button class="overlay-close" onclick="hideSection('study-section')">✕</button>
+  <div class="gallery-intro">
+    <h2>Research &amp; Study</h2>
+    <p>Academic works, research projects, and studies I've contributed to throughout my academic journey.</p>
+  </div>
+  <div class="study-items">
+    <div class="study-card">
+      <div class="study-img"></div>
+      <div>
+        <h3>Research Paper Title</h3>
+        <p>A brief description of this research — its purpose, methodology, and what was discovered or achieved through the study. Replace this with your actual research details.</p>
+      </div>
+    </div>
+    <div class="study-card">
+      <div class="study-img"></div>
+      <div>
+        <h3>Research Paper Title</h3>
+        <p>A brief description of this research — its purpose, methodology, and what was discovered or achieved through the study. Replace this with your actual research details.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showSection(id) {
+    document.getElementById(id).style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+  function hideSection(id) {
+    document.getElementById(id).style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { hideSection('gallery-section'); hideSection('study-section'); }
+  });
+
+  // Active nav highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+    navLinks.forEach(a => {
+      a.style.color = ''; a.style.background = '';
+      if (a.getAttribute('href') === '#' + current) {
+        a.style.color = 'var(--accent)';
+        a.style.background = 'rgba(61,220,120,0.08)';
+      }
+    });
+  });
+</script>
+</body>
+</html>
